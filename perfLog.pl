@@ -6,7 +6,7 @@ use MIME::Lite;
 my $servername = `hostname`;
 
 my $emailTo = 'chris@pureinnovation.com, mark@pureinnovation.com';
-my $emailFrom = 'db@'.$servername;
+my $emailFrom = 'db@pureinnovation.com';
 my $dateStr = DateTime->now->subtract(days => 1)->strftime('%Y-%m-%d');
 my $workDir = '/tmp/perfLog/';
 my $reportFile = sprintf('report-%s.html', $dateStr);
