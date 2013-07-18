@@ -3,11 +3,14 @@ use strict;
 use DateTime;
 use MIME::Lite;
 
+my $servername = `hostname`;
+
 my $emailTo = 'chris@pureinnovation.com, mark@pureinnovation.com';
-my $emailFrom = 'wearme@pureinnovation.com';
+my $emailFrom = 'db@'.$servername;
 my $dateStr = DateTime->now->subtract(days => 1)->strftime('%Y-%m-%d');
 my $workDir = '/tmp/perfLog/';
 my $reportFile = sprintf('report-%s.html', $dateStr);
+
 
 eval {
 	die "Error clearing working directory" if (system('rm', '-rf', $workDir));
@@ -24,7 +27,7 @@ eval {
 	my $msg = MIME::Lite->new(
 		To		=> $emailTo,
 		From	=> $emailFrom,
-		Subject => sprintf('Assetz DB Report - %s', $dateStr),
+		Subject => sprintf('%s DB Report - %s', $servername, $dateStr),
 		Type	=> 'multipart/mixed'
 	);
 
@@ -48,7 +51,7 @@ if ($@) {
 	my $msg = MIME::Lite->new(
 		To		=> $emailTo,
 		From	=> $emailFrom,
-		Subject	=> sprintf('Error generating Assetz DB Report - %s', $dateStr),
+		Subject	=> sprintf('Error generating %s DB Report - %s', $servername, $dateStr),
 		Type	=> 'text/plain',
 		Data	=> "Error: $@"
 	);
