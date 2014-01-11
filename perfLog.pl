@@ -5,8 +5,8 @@ use MIME::Lite;
 
 my $servername = `hostname`;
 
-my $emailTo = 'chris@pureinnovation.com, mark@pureinnovation.com';
-my $emailFrom = 'db@pureinnovation.com';
+my $emailTo = 'chris@lendlink.co.uk, colin@lendlink.co.uk';
+my $emailFrom = 'db@lendlink.co.uk';
 my $dateStr = DateTime->now->subtract(days => 1)->strftime('%Y-%m-%d');
 my $workDir = '/tmp/perfLog/';
 my $reportFile = sprintf('report-%s.html', $dateStr);
@@ -38,6 +38,7 @@ eval {
 
 	$msg->attach(
 		Type	=> 'text/html',
+		Encoding => 'base64',
 		Path	=> $workDir.$reportFile,
 		Filename => $reportFile,
 		Disposition => 'attachment'
